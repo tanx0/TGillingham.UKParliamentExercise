@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/UKParliament.CodeTest.Services/bin/Debug/net8.0
+/UKParliament.CodeTest.Services/obj
+/UKParliament.CodeTest.Tests/obj
+/UKParliament.CodeTest.Tests/bin/Debug/net8.0
+/UKParliament.CodeTest.Web/bin/Debug/net8.0
+/UKParliament.CodeTest.Web/obj
+/UKParliament.CodeTest.Data/bin/Debug/net8.0
+/UKParliament.CodeTest.Data/obj
