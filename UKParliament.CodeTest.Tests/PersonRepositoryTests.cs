@@ -38,7 +38,6 @@ public class PersonRepositoryTests : IDisposable
 
         // Assert
         Assert.Equal(2, people.Count);
-
     }
 
     [Fact]
@@ -53,7 +52,15 @@ public class PersonRepositoryTests : IDisposable
         Assert.Equal("Doe", person.LastName);
     }
 
+    [Fact]
+    public async Task GetPerson_ShouldReturnNull_WhenPersonDoesNotExist()
+    {
+        // Act
+        var person = await _repository.GetPersonAsync(99); // non-existent Id
 
+        // Assert
+        Assert.Null(person);
+    }
 
     [Fact]
     public async Task AddPerson_ShouldAddPersonSuccessfully()
