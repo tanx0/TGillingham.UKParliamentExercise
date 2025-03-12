@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UKParliament.CodeTest.Data;
 
 public class PersonRepository(PersonManagerContext ctx) : IPersonRepository
@@ -11,10 +8,11 @@ public class PersonRepository(PersonManagerContext ctx) : IPersonRepository
         return await ctx.People.ToListAsync();
     }
 
-    public async Task AddPersonAsync(PersonEntity person)
+    public async Task<PersonEntity> AddPersonAsync(PersonEntity person)
     {
         await ctx.AddAsync(person);
         await ctx.SaveChangesAsync();
+        return person;
     }
 
     public async Task<PersonEntity?> GetPersonAsync(int id)

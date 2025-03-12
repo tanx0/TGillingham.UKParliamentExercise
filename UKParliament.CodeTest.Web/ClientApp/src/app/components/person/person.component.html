@@ -18,7 +18,7 @@
         </li>
       </ul>
 
-      <button (click)="addNewPerson()" [disabled]="loading || globalErrorMessage">Add New Person</button>
+      <button id="addPersonButton" (click)="addNewPerson()" [disabled]="loading || globalErrorMessage">Add New Person</button>
     </div>
 
     <!-- Editor for selected person -->
@@ -39,7 +39,7 @@
                  required
                  #firstName="ngModel" />
           <em class="error" *ngIf="firstName.invalid && firstName.touched">
-            First Name is required
+           First Name is required
           </em>
         </div>
 
@@ -91,11 +91,11 @@
 
         </div>
 
-        <button type="submit" [disabled]="personForm.invalid || selectedPerson.departmentId === 0">
+        <button id="saveButton" type="submit" [disabled]="personForm.invalid || selectedPerson.departmentId === 0">
           Save
         </button>
 
-        <button type="button" class="cancel" (click)="cancelPersonEdit()">Cancel</button>
+        <button id="cancelButton" type="button" class="cancel" (click)="cancelPersonEdit()">Cancel</button>
 
         <div *ngIf="saveError" class="saveError">
           {{ errorMessage }}

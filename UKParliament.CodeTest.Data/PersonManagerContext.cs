@@ -8,14 +8,14 @@ public class PersonManagerContext(DbContextOptions<PersonManagerContext> options
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<PersonEntity>().HasKey(d => d.Id);  // Set primary key
-        
+
         modelBuilder.Entity<PersonEntity>()
             .HasOne(p => p.Department)
             .WithMany(d => d.People)
             .HasForeignKey(p => p.DepartmentId)
-            .OnDelete(DeleteBehavior.Cascade); 
-
-        //todo: endure DepartmentId starts with 1
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
+        
         modelBuilder.Entity<DepartmentEntity>().HasKey(d => d.Id);  // Set primary key
 
         var dep1 = new DepartmentEntity { Id = 1, Name = "Sales" };
@@ -25,7 +25,6 @@ public class PersonManagerContext(DbContextOptions<PersonManagerContext> options
 
         modelBuilder.Entity<DepartmentEntity>().HasData(dep1, dep2, dep3, dep4);
     }
-
     public DbSet<PersonEntity> People { get; set; }
 
     public DbSet<DepartmentEntity> Departments { get; set; }

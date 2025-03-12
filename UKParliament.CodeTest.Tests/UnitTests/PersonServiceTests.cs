@@ -9,7 +9,7 @@ using UKParliament.CodeTest.Services.Models;
 using ValidationException = UKParliament.CodeTest.Services.Exceptions.ValidationException;
 
 
-namespace UKParliament.CodeTest.Tests.Services
+namespace UKParliament.CodeTest.Tests.UnitTests
 {
     public class PersonServiceTests
     {
@@ -103,7 +103,7 @@ namespace UKParliament.CodeTest.Tests.Services
 
             _mockValidator
                 .Setup(v => v.ValidateAsync(It.IsAny<PersonDetailsDto>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new FluentValidation.Results.ValidationResult()); // No validation errors
+                .ReturnsAsync(new ValidationResult()); // No validation errors
 
             _mockMapper.Setup(m => m.Map<PersonEntity>(personDto)).Returns(personEntity);
 
@@ -124,7 +124,7 @@ namespace UKParliament.CodeTest.Tests.Services
                 new ValidationFailure("FirstName", "First Name is required"),
                 new ValidationFailure("LastName", "Last Name is required")
             };
-            var validationResult = new FluentValidation.Results.ValidationResult(validationFailures);            
+            var validationResult = new ValidationResult(validationFailures);            
 
             _mockValidator
                 .Setup(v => v.ValidateAsync(It.IsAny<PersonDetailsDto>(), It.IsAny<CancellationToken>()))
@@ -148,7 +148,7 @@ namespace UKParliament.CodeTest.Tests.Services
             //_mockValidator.Setup(v => v.Validate(personDto)).Returns(new ValidationResult()); // No validation errors
 
             _mockValidator.Setup(v => v.ValidateAsync(personDto, It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new FluentValidation.Results.ValidationResult());
+                .ReturnsAsync(new ValidationResult());
 
             _mockMapper.Setup(m => m.Map(personDto, personEntity));
 
@@ -168,7 +168,7 @@ namespace UKParliament.CodeTest.Tests.Services
             _mockPersonRepository.Setup(repo => repo.GetPersonAsync(personDto.Id)).ReturnsAsync((PersonEntity)null);
 
             // Act & Assert
-            var exception = Assert.ThrowsAsync<NotFoundException>(() => _personService.UpdatePersonAsync(personDto)).Result;
+            var exception = await Assert.ThrowsAsync<NotFoundException>(() => _personService.UpdatePersonAsync(personDto));
             Assert.Equal("Person not found", exception.Message);
         }
 
@@ -183,7 +183,7 @@ namespace UKParliament.CodeTest.Tests.Services
             {
                 new ValidationFailure("DateOfBirth", "Date of Birth is required")
             };
-            var validationResult = new FluentValidation.Results.ValidationResult(validationFailures);
+            var validationResult = new ValidationResult(validationFailures);
 
             _mockPersonRepository.Setup(repo => repo.GetPersonAsync(personDto.Id)).ReturnsAsync(personEntity);
             //_mockValidator.Setup(v => v.Validate(personDto)).Returns(validationResult);

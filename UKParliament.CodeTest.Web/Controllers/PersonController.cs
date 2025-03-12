@@ -53,31 +53,26 @@ public class PersonController(IPersonService personService) : ControllerBase
         }
     }
 
-
-
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]    
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> AddPersonAsync(PersonViewModel person)
     {
         try
         {
-            await personService.AddPersonAsync(person.ToDto());
-            return Created();
+            var createdPerson = await personService.AddPersonAsync(person.ToDto());
+
+            var createdPersonViewModel = createdPerson.ToViewModel(); 
+
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = createdPerson.Id }, createdPersonViewModel);
         }
         catch (ValidationException e)
         {
             return BadRequest(new { e.Errors });
         }
-        catch (DuplicateException e)
-        {   
-            return Conflict(e.Message);
-        }
-        catch(Exception e)
+        catch
         {
-            Console.WriteLine(e);
             return StatusCode(500);
         }
     }
@@ -85,8 +80,7 @@ public class PersonController(IPersonService personService) : ControllerBase
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]    
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> UpdatePersonAsync(PersonViewModel person)
     {
@@ -102,10 +96,6 @@ public class PersonController(IPersonService personService) : ControllerBase
         catch (ValidationException ex)
         {
             return BadRequest(new { ex.Errors } );
-        }
-        catch (DuplicateException e)
-        {
-            return Conflict(e.Message);
         }
         catch
         {

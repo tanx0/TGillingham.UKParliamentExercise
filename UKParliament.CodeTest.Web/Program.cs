@@ -28,6 +28,8 @@ public class Program
         builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
         //Validators:
+        //builder.Services.AddScoped<IValidator<PersonDetailsDto>, PersonDetailsValidator>();
+
         builder.Services.AddScoped<PersonValidator>(); 
 
         builder.Services.AddScoped<IValidator<PersonDto>, PersonValidator>();

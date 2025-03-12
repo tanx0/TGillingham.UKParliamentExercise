@@ -4,7 +4,7 @@ using Xunit;
 using AutoMapper;
 using UKParliament.CodeTest.Services.Mappers;
 
-namespace UKParliament.CodeTest.Tests
+namespace UKParliament.CodeTest.Tests.UnitTests
 {
     public class AutoMapperCollectionTests
     {

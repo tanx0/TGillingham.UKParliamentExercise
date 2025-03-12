@@ -43,7 +43,7 @@ public class PersonService(
         }
     }
 
-    public async Task AddPersonAsync(PersonDetailsDto personDto)
+    public async Task<PersonDetailsDto> AddPersonAsync(PersonDetailsDto personDto)
     {
         var validationResult = await validator.ValidateAsync(personDto);
 
@@ -53,8 +53,10 @@ public class PersonService(
             throw new ValidationException(errors);
         }
 
-        var personEntity = mapper.Map<PersonEntity>(personDto);
-        await personRepository.AddPersonAsync(personEntity);
+        PersonEntity personEntity = mapper.Map<PersonEntity>(personDto);
+        PersonEntity createdPerson = await personRepository.AddPersonAsync(personEntity);
+
+        return mapper.Map<PersonDetailsDto>(createdPerson);
     }
 
 

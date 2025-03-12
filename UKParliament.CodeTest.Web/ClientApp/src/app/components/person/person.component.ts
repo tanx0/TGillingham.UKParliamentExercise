@@ -121,22 +121,19 @@ export class PersonComponent implements OnInit {
   handleApiError(error: any): void {
     console.error('API Error:', error);
     if (typeof error.error === 'string') {
-      this.errorMessage = error.error; // Use the message from the backend response
-      
+      this.errorMessage = error.error; // the message from the backend response      
   } else if (error.status === 400 && error.error.errors) {
     // Validation errors (BadRequest) - store them in validationErrors
     this.validationErrors = this.flattenValidationErrors(error.error.errors);
     this.errorMessage = ''; // Clear generic error message since it's field-specific
     } else if (error.status === 404) {
       this.errorMessage = 'Resource not found';
-    } else if (error.status === 409) {
-      this.errorMessage = 'Conflict detected.';
     } else if (error.status === 500) {
       this.errorMessage = 'Server error. Please try again later.';
     } else {
       this.errorMessage = 'An unexpected error occurred. Please try again.';
     }
-    this.saveError = true; // Show the error message in the template
+    this.saveError = true; // Show the error message 
   }
 
   private flattenValidationErrors(errors: any): { [key: string]: string } {

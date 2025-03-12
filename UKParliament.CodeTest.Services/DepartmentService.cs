@@ -1,7 +1,6 @@
 ﻿using UKParliament.CodeTest.Data;
 using UKParliament.CodeTest.Services.Exceptions;
 using UKParliament.CodeTest.Services.Models;
-
 namespace UKParliament.CodeTest.Services;
 
 public class DepartmentService(IDepartmentRepository departmentRepository) : IDepartmentService

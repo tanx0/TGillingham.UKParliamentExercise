@@ -3,10 +3,9 @@ using Moq;
 using UKParliament.CodeTest.Services;
 using UKParliament.CodeTest.Data;
 using UKParliament.CodeTest.Services.Exceptions;
-using System.Threading.Tasks;
 using UKParliament.CodeTest.Services.Models;
 
-namespace UKParliament.CodeTest.Tests.Services
+namespace UKParliament.CodeTest.Tests.UnitTests
 {
     public class DepartmentServiceTests
     {

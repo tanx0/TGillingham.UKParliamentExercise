@@ -5,7 +5,7 @@ using UKParliament.CodeTest.Services.Validators;
 using UKParliament.CodeTest.Services.Models;
 using UKParliament.CodeTest.Data;
 
-namespace UKParliament.CodeTest.Tests.Validators
+namespace UKParliament.CodeTest.Tests.UnitTests
 {
     public class PersonValidatorTests
     {
@@ -110,15 +110,15 @@ namespace UKParliament.CodeTest.Tests.Validators
         [Fact]
         public async Task Should_Have_Error_When_Person_Is_Duplicate()
         {
-            var duplicatePerson = new PersonEntity { Id = 2, FirstName = "John", LastName = "Smith", DateOfBirth = DateTime.Today.AddYears(-30) };
-            _mockPersonRepository.Setup(repo => repo.SearchForPersonAsync("John", "Smith", duplicatePerson.DateOfBirth))
+            PersonEntity duplicatePerson = new PersonEntity { Id = 2, FirstName = "John", LastName = "Smith", DateOfBirth = DateTime.Today.AddYears(-30) };
+            _mockPersonRepository.Setup(repo => repo.SearchForPersonAsync("John", "Smith", duplicatePerson.DateOfBirth.Value))
                 .ReturnsAsync(duplicatePerson);
 
             var model = new PersonDetailsDto
             {
                 FirstName = "John",
                 LastName = "Smith",
-                DateOfBirth = duplicatePerson.DateOfBirth
+                DateOfBirth = duplicatePerson.DateOfBirth.Value
             };
 
             var result = await _validator.TestValidateAsync(model);

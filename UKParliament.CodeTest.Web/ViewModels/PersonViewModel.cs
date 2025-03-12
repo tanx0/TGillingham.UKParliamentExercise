@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace UKParliament.CodeTest.Web.ViewModels;
+﻿namespace UKParliament.CodeTest.Web.ViewModels;
 
 public class PersonViewModel 
 {
