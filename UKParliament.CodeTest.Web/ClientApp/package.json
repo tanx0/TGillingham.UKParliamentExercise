@@ -33,6 +33,7 @@
     "@angular-devkit/build-angular": "^18.1.2",
     "@angular/cli": "^18.1.2",
     "@angular/compiler-cli": "^18.1.2",
+    "@playwright/test": "^1.51.0",
     "@types/jasmine": "~4.0.3",
     "@types/jasminewd2": "~2.0.10",
     "@types/node": "^18.0.0",
@@ -42,9 +43,16 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "^2.0.0",
-    "typescript": "^5.4.5"
+    "playwright": "^1.51.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   },
   "overrides": {
     "autoprefixer": "10.4.5"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.",
+  "main": "aspnetcore-https.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

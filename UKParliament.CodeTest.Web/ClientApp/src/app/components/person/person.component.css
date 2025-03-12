@@ -1,0 +1,128 @@
+.people-container {
+  display: flex;
+  gap: 20px;
+  margin: 20px;
+}
+
+.people-list {
+  width: 40%;
+}
+
+  .people-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .people-list li {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+    .people-list li.selected {
+      background-color: #f0f0f0;
+    }
+    .people-list li:hover {
+      background-color: #e0e0e0;
+    }
+
+.person-editor {
+  width: 50%;
+}
+
+form div {
+  margin-bottom: 10px;
+}
+
+form label {
+  display: block;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+form button {
+  padding: 10px 15px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+  form button:hover {
+    background-color: #0056b3;
+  }
+
+  form button + button {
+    margin-left: 10px; /* Adjust spacing as needed */
+  }
+
+  /* Cancel button specific styles */
+  form button.cancel {
+    background-color: #dc3545; /* Red color for cancel */
+  }
+
+    form button.cancel:hover {
+      background-color: #a71d2a;
+    }
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-size: 18px;
+  color: #888;
+}
+
+  .loading-indicator p {
+    margin: 0;
+  }
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+  button[disabled]:hover {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+/* Add a spinner animation */
+.loading-indicator::after {
+  content: '';
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+input.error {
+  border: 1px solid #d25ca1;
+}
+
+em.error {
+  padding: 2px 5px;  
+  color: red;
+  font-style: normal;
+}
+
+.saveError {
+  margin: 25px 0;
+  color: red;
+  font-size: 18px;
+  text-align: center;
+}

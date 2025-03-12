@@ -1,0 +1,110 @@
+<main>
+  <div class="people-container">
+
+    <!-- List of people -->
+    <div class="people-list">
+      <h2>Person Manager App</h2>
+      <!-- Loading indicator for people list -->
+      <div *ngIf="loading" class="loading-indicator">
+        <p>Loading...</p>
+      </div>
+      <div *ngIf="globalErrorMessage" class="saveError">
+        {{ globalErrorMessage }}
+      </div>
+      <ul *ngIf="!loading">
+        <li *ngFor="let person of people" (click)="selectPerson(person)" [class.selected]="selectedPerson.id === person.id">
+          {{ person.firstName }} {{ person.lastName }}
+          ({{ getDepartmentName(person.departmentId) }}) <!-- Display department name -->
+        </li>
+      </ul>
+
+      <button (click)="addNewPerson()" [disabled]="loading || globalErrorMessage">Add New Person</button>
+    </div>
+
+    <!-- Editor for selected person -->
+    <div class="person-editor" *ngIf="isEditing">
+
+      <!-- Loading indicator for saving -->
+      <div *ngIf="loading" class="loading-indicator">
+        <p>Saving...</p>
+      </div>
+
+      <form *ngIf="!loading" #personForm="ngForm" (ngSubmit)="savePerson()">
+        <div>
+          <label for="firstName">First Name</label>
+          <input type="text"
+                 id="firstName"
+                 [(ngModel)]="selectedPerson.firstName"
+                 name="firstName"
+                 required
+                 #firstName="ngModel" />
+          <em class="error" *ngIf="firstName.invalid && firstName.touched">
+            First Name is required
+          </em>
+        </div>
+
+        <div>
+          <label for="lastName">Last Name</label>
+          <input type="text"
+                 id="lastName"
+                 [(ngModel)]="selectedPerson.lastName"
+                 name="lastName"
+                 required
+                 #lastName="ngModel" />
+          <em class="error" *ngIf="lastName.invalid && lastName.touched">
+            Last Name is required
+          </em>
+        </div>
+
+        <div>
+          <label for="dateOfBirth">Date of Birth</label>
+          <input type="date"
+                 id="dateOfBirth"
+                 [(ngModel)]="selectedPerson.dateOfBirth"
+                 name="dateOfBirth"
+                 required
+                 #dateOfBirth="ngModel" />
+          <em class="error" *ngIf="dateOfBirth.invalid && dateOfBirth.touched">
+            Date of Birth is required
+          </em>
+        </div>
+
+        <div>
+          <label for="department">Department</label>
+          <select id="department"
+                  [(ngModel)]="selectedPerson.departmentId"
+                  name="departmentId"
+                  #department="ngModel"
+                  required
+                  [ngClass]="{'error': departmentIdInvalid(department.value)}">
+
+            <option [value]="0" disabled selected>Select a department</option>            
+            <option *ngFor="let dept of departments" [value]="dept.departmentId">
+              {{ dept.departmentName }}
+            </option>
+          </select>
+          <br />
+          <!-- Display validation error when department is invalid -->
+          <em class="error" *ngIf="department.touched && departmentIdInvalid(department.value)">
+            Department is required
+          </em>
+
+        </div>
+
+        <button type="submit" [disabled]="personForm.invalid || selectedPerson.departmentId === 0">
+          Save
+        </button>
+
+        <button type="button" class="cancel" (click)="cancelPersonEdit()">Cancel</button>
+
+        <div *ngIf="saveError" class="saveError">
+          {{ errorMessage }}
+        </div>
+        <div *ngFor="let field of validationErrors | keyvalue">
+          <em class="saveError">{{ field.value }}</em>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</main>
